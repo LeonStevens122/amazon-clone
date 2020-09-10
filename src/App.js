@@ -4,10 +4,9 @@ import "./App.css";
 
 function App() {
   return (
+    // BEM
     <div className="app">
-      
-      <Header />  {/* Home */}
-      
+      <Header /> {/* Home */}
     </div>
   );
 }
