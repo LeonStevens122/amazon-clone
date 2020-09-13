@@ -17,6 +17,7 @@ import Login from "./components/Login/Login";
 // import state handlers
 import { useStateValue } from "./StateProvider/StateProvider";
 import { auth } from "./firebase";
+import Payment from "./components/Payment/Payment";
 
 function App() {
   const [{}, dispatch] = useStateValue();
@@ -59,12 +60,12 @@ function App() {
             <Header />
             <Checkout />
           </Route>
-          {/*   <Route path="/payment">
+            <Route path="/payment">
             <Header />
             <Elements stripe={promise}>
               <Payment />
             </Elements>
-          </Route> */}
+          </Route> 
           <Route path="/">
             <Header />
             <Home />
