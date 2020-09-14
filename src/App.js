@@ -2,7 +2,9 @@
 
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
+import { auth } from "./firebase";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 // import Styling
 
 import "./App.css";
@@ -13,13 +15,18 @@ import Home from "./components/Home/Home";
 import Checkout from "./components/Checkout/Checkout";
 import Orders from "./components/Orders/Orders";
 import Login from "./components/Login/Login";
-
-// import state handlers
-import { useStateValue } from "./StateProvider/StateProvider";
-import { auth } from "./firebase";
 import Payment from "./components/Payment/Payment";
 
+// import state handlers
+
+import { useStateValue } from "./StateProvider/StateProvider";
+
+const promise = loadStripe(
+  "pk_test_51HRCFfJ4xPz4aD2gq1Oa2Z3l0Gx46200YjoI2q4rd3At4IuYkyLa2Z4TSejDn5vFblc1KQtrujayOqY6Z21tEizH00RXOf7FGr"
+);
+
 function App() {
+  // eslint-disable-next-line no-empty-pattern
   const [{}, dispatch] = useStateValue();
 
   useEffect(() => {
@@ -60,12 +67,12 @@ function App() {
             <Header />
             <Checkout />
           </Route>
-            <Route path="/payment">
+          <Route path="/payment">
             <Header />
             <Elements stripe={promise}>
               <Payment />
             </Elements>
-          </Route> 
+          </Route>
           <Route path="/">
             <Header />
             <Home />

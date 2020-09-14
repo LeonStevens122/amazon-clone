@@ -27,8 +27,13 @@ function Payment() {
     const getClientSecret = async () => {
       const response = await axios({
         method: "post",
-        // Stripe expects the total in a currencies subunits
-        url: `/payments/create?total=${getBasketTotal(basket) * 100}`,
+        // Stripe expects the total in a currencies subunits,
+        //using toFixed(0) to ensure JS math doesnt create funny errors.
+        // TO DO : run tests  to check if the JS math gives any problems that require a change to the calculations to work better
+
+        url: `/payments/create?total=${(getBasketTotal(basket) * 100).toFixed(
+          0
+        )}`,
       });
       setClientSecret(response.data.clientSecret);
     };
@@ -36,8 +41,8 @@ function Payment() {
     getClientSecret();
   }, [basket]);
 
-  console.log("THE SECRET IS >>>", clientSecret);
-  console.log("👱", user);
+  //console.log("THE SECRET IS >>>", clientSecret);
+  //console.log("👱", user);
 
   const handleSubmit = async (event) => {
     // do all the fancy stripe stuff...
@@ -74,7 +79,6 @@ function Payment() {
         history.replace("/orders");
       });
   };
-
   const handleChange = (event) => {
     // Listen for changes in the CardElement
     // and display any errors as the customer types their card details
